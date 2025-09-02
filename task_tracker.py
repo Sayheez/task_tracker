@@ -33,30 +33,6 @@ class Task:
         print("Task added!")
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="A simple Task CLI Tracker"
-    )
-
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
-
-    # Subcommand: add
-    greet_parser = subparsers.add_parser("add", help="Add a task description")
-    greet_parser.add_argument("description", type=str, help="task description")
-
-    # Parse arguments
-    args = parser.parse_args()
-
-    # Dispatch commands
-    if args.command == "add":
-        Task.add(args.name)
-    else:
-        parser.print_help()
-
-
-if __name__ == "__main__":
-    main()
-
     
 
     
