@@ -3,10 +3,7 @@ from datetime import date
 
 class Task:
     def __init__(self):
-        self.description = "task"
         self.status = "TODO"
-        self.created_at = date.today
-        self.updated_at = date.today
         self.tasks_list = self._get_json_from_file()
         self.filename = "tasks.json"
 
@@ -44,4 +41,14 @@ class Task:
 
     # Add a task
     def add_task(self, task_description): 
-        pass
+        task_id = len(self.tasks_list) + 1
+        new_task = {
+            "id": task_id,
+            "description": task_description,
+            "status": self.status,
+            "created_at": date.today(),
+            "updated_at": date.today()
+        } 
+        self.tasks_list.append(new_task)
+        self._save_tasks()
+        print(f"✅ Task added successfully with the id being {task_id}")
