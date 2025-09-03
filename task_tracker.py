@@ -5,8 +5,8 @@ class Task:
     def __init__(self):
         self.description = "task"
         self.status = "TODO"
-        self.created_at = date.today()
-        self.updated_at = date.today()
+        self.created_at = date.today
+        self.updated_at = date.today
         self.tasks_list = []
 
                 # Initialize parser
