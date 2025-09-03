@@ -26,13 +26,5 @@ class Task:
 
 
 
-    def add(self, task_description):
-        with open("tasks.json", "a") as file:
-            self.tasks_list = json.load(file)
-        self.tasks_list.append(task_description)
-        print("Task added!")
-
-
-    
-
-    
+    def add_task(self, task_description): 
+        pass
