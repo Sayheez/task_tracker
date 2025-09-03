@@ -27,7 +27,7 @@ class Task:
 
 
     # Internal function to Load the json data from file if it exists
-    def get_json_from_file(self):
+    def _get_json_from_file(self):
         try:
             if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
                 with open(self.filename, "r") as json_data:
@@ -38,6 +38,9 @@ class Task:
 
 
     # Internal function to save the json
+    def _save_tasks(self):
+        with open(self.filename, "w") as file:
+            json.dump(self.tasks_list, file, indent=4)
 
     # Add a task
     def add_task(self, task_description): 
