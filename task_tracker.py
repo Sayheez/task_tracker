@@ -7,7 +7,7 @@ class Task:
         self.status = "TODO"
         self.created_at = date.today
         self.updated_at = date.today
-        self.tasks_list = []
+        self.tasks_list = self._get_json_from_file()
         self.filename = "tasks.json"
 
                 # Initialize parser
@@ -28,10 +28,13 @@ class Task:
 
     # Internal function to Load the json data from file if it exists
     def get_json_from_file(self):
-        if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
-            with open(self.filename, "r") as json_data:
-                self.tasks_list = json.load(json_data)
-        return self.tasks_list
+        try:
+            if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
+                with open(self.filename, "r") as json_data:
+                    self.tasks_list = json.load(json_data)
+            return []
+        except ValueError:
+            print("No such file exists")
 
 
     # Internal function to save the json
