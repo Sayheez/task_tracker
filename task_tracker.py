@@ -1,4 +1,4 @@
-import argparse, json
+import os, argparse, json
 from datetime import date
 
 class Task:
@@ -8,6 +8,7 @@ class Task:
         self.created_at = date.today
         self.updated_at = date.today
         self.tasks_list = []
+        self.filename = "tasks.json"
 
                 # Initialize parser
         self.parser = argparse.ArgumentParser(
@@ -25,6 +26,16 @@ class Task:
         add_task_parser.add_argument("description", type=str, help="Task description")
 
 
+    # Internal function to Load the json data from file if it exists
+    def get_json_from_file(self):
+        if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
+            with open(self.filename, "r") as json_data:
+                self.tasks_list = json.load(json_data)
+        return self.tasks_list
 
+
+    # Internal function to save the json
+
+    # Add a task
     def add_task(self, task_description): 
         pass
