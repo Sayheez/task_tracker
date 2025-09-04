@@ -1,11 +1,11 @@
 import os, argparse, json
-from datetime import date
+from datetime import datetime
 
 class Task:
     def __init__(self):
         self.status = "TODO"
+        self.filename = ".\\tasks.json"
         self.tasks_list = self._get_json_from_file()
-        self.filename = "tasks.json"
 
                 # Initialize parser
         self.parser = argparse.ArgumentParser(
@@ -22,6 +22,15 @@ class Task:
         add_task_parser = self.subparsers.add_parser("add_task", help="Add a task ")
         add_task_parser.add_argument("description", type=str, help="Task description")
 
+    def run(self):
+        """Parse arguments and dispatch commands"""
+        args = self.parser.parse_args()
+
+        if args.command == "add_task":
+            self.add_task(args.description)
+        else:
+            self.parser.print_help()
+
 
     # Internal function to Load the json data from file if it exists
     def _get_json_from_file(self):
@@ -29,6 +38,7 @@ class Task:
             if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
                 with open(self.filename, "r") as json_data:
                     self.tasks_list = json.load(json_data)
+                    return self.tasks_list
             return []
         except ValueError:
             print("No such file exists")
@@ -46,9 +56,14 @@ class Task:
             "id": task_id,
             "description": task_description,
             "status": self.status,
-            "created_at": date.today(),
-            "updated_at": date.today()
+            "created_at": datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat()
         } 
         self.tasks_list.append(new_task)
         self._save_tasks()
         print(f"✅ Task added successfully with the id being {task_id}")
+
+
+if __name__ == "__main__":
+   my_cli = Task()
+   my_cli.run()
