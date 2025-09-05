@@ -64,6 +64,17 @@ class Task:
         print(f"✅ Task added successfully with the id being {task_id}")
 
 
+    # List all tasks
+    def list_tasks(self):
+        """List all tasks with status"""
+        if not self.tasks:
+            print("📭 No tasks found.")
+            return
+        for task in self.tasks:
+            status = "✅ Done" if task.get("completed") else "❌ Pending"
+            print(f"{task['id']}: {task['description']} [{status}]")
+            
+
 if __name__ == "__main__":
    my_cli = Task()
    my_cli.run()
