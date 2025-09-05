@@ -49,6 +49,15 @@ class Task:
         with open(self.filename, "w") as file:
             json.dump(self.tasks_list, file, indent=4)
 
+
+    def start(self):
+        self.status = "IN_PROGRESS"
+
+
+    def complete(self):
+        self.status = "DONE"
+
+
     # Add a task
     def add_task(self, task_description): 
         task_id = len(self.tasks_list) + 1
@@ -73,7 +82,7 @@ class Task:
         for task in self.tasks:
             status = "✅ Done" if task.get("completed") else "❌ Pending"
             print(f"{task['id']}: {task['description']} [{status}]")
-            
+
 
 if __name__ == "__main__":
    my_cli = Task()
