@@ -85,6 +85,7 @@ class Task:
             print(f"{task['id']}: {task['description']} [{status}]")
 
 
+    # Delete a task
     def delete_task(self, task_id):
         """Delete task by ID"""
         original_len = len(self.tasks)
@@ -95,6 +96,24 @@ class Task:
             print(f"🗑 Task {task_id} deleted successfully.")
         else:
             print(f"⚠️ Task with id {task_id} not found.") 
+
+
+    # Update a task
+    def update_task(self, task_id, task_description):
+        if task_id is None:
+            return
+
+        updated_task = {
+            "id": task_id,
+            "description": task_description,
+            "status": self.status,
+            "created_at": datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat()
+        }
+
+        self.tasks_list[task_id] = updated_task
+
+    
     
 
 
