@@ -37,6 +37,7 @@ class Task:
         try:
             if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
                 with open(self.filename, "r") as json_data:
+
                     self.tasks_list = json.load(json_data)
                     return self.tasks_list
             return []
@@ -82,6 +83,19 @@ class Task:
         for task in self.tasks:
             status = "✅ Done" if task.get("completed") else "❌ Pending"
             print(f"{task['id']}: {task['description']} [{status}]")
+
+
+    def delete_task(self, task_id):
+        """Delete task by ID"""
+        original_len = len(self.tasks)
+        self.tasks = [task for task in self.tasks if task["id"] != task_id]
+
+        if len(self.tasks) < original_len:
+            self._save_tasks()
+            print(f"🗑 Task {task_id} deleted successfully.")
+        else:
+            print(f"⚠️ Task with id {task_id} not found.") 
+    
 
 
 if __name__ == "__main__":
