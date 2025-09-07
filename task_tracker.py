@@ -22,12 +22,23 @@ class Task:
         add_task_parser = self.subparsers.add_parser("add_task", help="Add a task ")
         add_task_parser.add_argument("description", type=str, help="Task description")
 
+        delete_task_parser = self.subparsers.add_parser("delete_task", help="Delete a task ")
+        delete_task_parser.add_argument("task_id", type=int, help="number")
+
+        update_task_parser = self.subparsers.add_parser("update_task", help="Update a task ")
+        update_task_parser.add_argument("task_id", type=int, help="first argument")
+        update_task_parser.add_argument("description", type=str, help="second argument")
+
     def run(self):
         """Parse arguments and dispatch commands"""
         args = self.parser.parse_args()
 
         if args.command == "add_task":
             self.add_task(args.description)
+        elif args.command == "update_task":
+            self.update_task(args.task_id, args.description)
+        elif args.command == "delete_task":
+            self.delete_task(args.task_id)
         else:
             self.parser.print_help()
 
@@ -88,8 +99,8 @@ class Task:
     # Delete a task
     def delete_task(self, task_id):
         """Delete task by ID"""
-        original_len = len(self.tasks)
-        self.tasks = [task for task in self.tasks if task["id"] != task_id]
+        original_len = len(self.tasks_list)
+        self.tasks = [task for task in self.tasks_list if task["id"] != task_id]
 
         if len(self.tasks) < original_len:
             self._save_tasks()
